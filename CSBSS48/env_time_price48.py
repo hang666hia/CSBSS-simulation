@@ -2,6 +2,12 @@ import numpy as np
 import random
 from queue import Queue
 
+low = np.array([2,2,2,2, 3,3,3,3, 4,4,4,4, 4,4,4,4, 3,3,3,3,
+       2,2,2,2, 2,2,2,2, 3,3,3,3, 4,4,4,4, 5,5,5,5, 6,6,6,6,
+       6,6,6,6])+1
+high = np.array([ 6,6,6,6, 7,7,7,7, 8,8,8,8, 8,8,8,8, 7,7,7,7,
+        6,6,6,6, 6,6,6,6, 7,7,7,7, 8,8,8,8, 9,9,9,9, 10,10,10,10,
+        10,10,10,10])-1
 
 class BSSEnvironment:
 
@@ -79,7 +85,7 @@ class BSSEnvironment:
     def customer_arrival(self):
 
         # self.customer_arrive = np.random.poisson(lam=self.customer_arrival_rate)
-        self.customer_arrive = np.random.randint(self.arr_low, self.arr_high)
+        self.customer_arrive = np.random.randint(low[self.t], high[self.t])
         # user enter waiting queue
         count = 0
         for i in range(self.customer_arrive):
@@ -92,7 +98,7 @@ class BSSEnvironment:
 
     def car_arrival(self):
         # self.car_arrive = np.random.poisson(lam=self.car_arrival_rate)
-        self.car_arrive = np.random.randint(self.arr_low, self.arr_high)
+        self.car_arrive = np.random.randint(low[self.t], high[self.t])
         # check SOC of ev
         for i in range(self.car_arrive):
             ran_soc = random.uniform(0.3, 0.7)

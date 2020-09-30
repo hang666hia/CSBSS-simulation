@@ -5,7 +5,7 @@ max_steps = 48
 num_of_swap_server = 100
 num_of_charging_slot = 15
 initial_FB = 40
-soc_threshold = 0.5
+soc_threshold = 0.6
 soc_max = 0.9
 car_arrival_rate = 6
 customer_arrival_rate = 6
@@ -70,3 +70,4 @@ print("episode reward", np.mean(episode_rewards))
 print("service_loss", np.mean(service_loss))
 print("electricity cost", np.mean(electricity_cost))
 print("income", np.mean(income))
+

@@ -2,12 +2,12 @@ import env_time_price48
 import RL_brain
 import numpy as np
 
-num_episodes = 3000
+num_episodes = 6000
 max_steps = 48
 num_of_swap_server = 100
 num_of_charging_slot = 15
 initial_FB = 40
-soc_threshold = 0.5
+soc_threshold = 0.6
 soc_max = 0.9
 car_arrival_rate = 6
 customer_arrival_rate = 6
@@ -48,7 +48,7 @@ for episode in range(num_episodes):
         env.pick_up_car()
         env.leave_queue()
 
-        # epsilon = (0.99 ** episode)
+        # epsilon = 0.5 * (0.99 ** episode)
         # if np.random.uniform(0, 1) >= epsilon:
         #     num = min(env.idle_slot, env.DB.qsize())
         #     action = RL.choose_action(observation, num)

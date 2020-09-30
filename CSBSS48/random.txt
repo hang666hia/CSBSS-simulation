@@ -1,0 +1,24 @@
+distance = random.uniform(0.3, 0.7)
+soc_threshold = 0.5
+episode reward -637.686
+service_loss 1.846
+electricity cost 612.547
+income 623.6748262664512
+
+soc_threshold = 0.6
+episode reward -1394.892
+service_loss 48.642
+electricity cost 621.062
+income 420.23666728131076
+
+soc_threshold = 0.7
+episode reward -2319.2
+service_loss 106.666
+electricity cost 616.859
+income 215.2058625936858
+
+soc_threshold = 0.8
+episode reward -3227.33
+service_loss 163.888
+electricity cost 609.479
+income 20.507187346249328
