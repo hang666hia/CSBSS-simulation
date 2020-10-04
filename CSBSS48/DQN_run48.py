@@ -1,12 +1,13 @@
 import env_time_price48
 import RL_brain
+import dqn_brain
 import numpy as np
 
-num_episodes = 6000
+num_episodes = 3000
 max_steps = 48
 num_of_swap_server = 100
 num_of_charging_slot = 15
-initial_FB = 40
+initial_FB = 30
 soc_threshold = 0.6
 soc_max = 0.9
 car_arrival_rate = 6
@@ -26,7 +27,7 @@ env = env_time_price48.BSSEnvironment(
     customer_arrival_rate=customer_arrival_rate
 )
 
-RL = RL_brain.DeepQNetwork(
+RL = dqn_brain.DeepQNetwork(
     n_actions=env.n_actions,
     n_features=env.n_features,
     learning_rate=0.01,
@@ -48,15 +49,15 @@ for episode in range(num_episodes):
         env.pick_up_car()
         env.leave_queue()
 
-        # epsilon = 0.5 * (0.99 ** episode)
-        # if np.random.uniform(0, 1) >= epsilon:
-        #     num = min(env.idle_slot, env.DB.qsize())
-        #     action = RL.choose_action(observation, num)
-        # else:
-        #     action = env.valid_random_action()
+        epsilon = 0.3 * (0.99 ** episode)
+        if np.random.uniform(0, 1) >= epsilon:
+            num = min(env.idle_slot, env.DB.qsize())
+            action = RL.choose_action(observation, num)
+        else:
+            action = env.valid_random_action()
 
-        num = min(env.idle_slot, env.DB.qsize())
-        action = RL.choose_action(observation, num)
+        # num = min(env.idle_slot, env.DB.qsize())
+        # action = RL.choose_action(observation, num)
         env.charging_battery(action)
         env.update_charging_slots()
         env.update_waiting_time()

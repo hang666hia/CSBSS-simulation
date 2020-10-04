@@ -18,19 +18,13 @@ class BSSEnvironment:
         self.t = 0
         self.e_price_table = np.zeros(96)
         for e in range(96):
-            # self.e_price_table[e] = 1
-            # if 0 <= e <= 27 or 92 <= e <= 95:
-            #     self.e_price_table[e] = 0.5
-            # elif 28 <= e <= 43 or 76 <= e <= 91:
-            #     self.e_price_table[e] = 1.5
-            # else:
-            #     self.e_price_table[e] = 1
-            if 0 <= e <= 11:
-                self.e_price_table[e] = 1.5
-            elif 12 <= e <= 43:
-                self.e_price_table[e] = 1
-            else:
+            self.e_price_table[e] = 1
+            if 0 <= e <= 27 or 92 <= e <= 95:
                 self.e_price_table[e] = 0.5
+            elif 28 <= e <= 43 or 76 <= e <= 91:
+                self.e_price_table[e] = 1.5
+            else:
+                self.e_price_table[e] = 1
         self.soc_threshold = soc_threshold
         self.soc_max = soc_max
         self.num_of_swap_server = num_of_swap_server

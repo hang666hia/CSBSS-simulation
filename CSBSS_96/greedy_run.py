@@ -1,12 +1,13 @@
 import CHenv
 import env_time_price
 import numpy as np
+
 num_episodes = 500
-max_steps = 48
+max_steps = 96
 num_of_swap_server = 100
 num_of_charging_slot = 15
 initial_FB = 40
-soc_threshold = 0.5
+soc_threshold = 0.6
 soc_max = 0.9
 car_arrival_rate = 6
 customer_arrival_rate = 6
@@ -61,7 +62,7 @@ import matplotlib.pyplot as plt
 # plt.ylabel('greedy_run_service_loss')
 # plt.xlabel('episode')
 # plt.show()
-#
+
 # plt.plot(np.arange(len(electricity_cost)), electricity_cost)
 # plt.ylabel('greedy_run_electricity_cost')
 # plt.xlabel('episode')

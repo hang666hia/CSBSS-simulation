@@ -1,12 +1,12 @@
 import CHenv
 import env_time_price
 import numpy as np
-import matplotlib.pyplot as plt
+
 num_episodes = 500
 max_steps = 96
 num_of_swap_server = 100
 num_of_charging_slot = 15
-initial_FB = 40
+initial_FB = 20
 soc_threshold = 0.5
 soc_max = 0.9
 car_arrival_rate = 6
@@ -26,6 +26,7 @@ env = env_time_price.BSSEnvironment(
     car_arrival_rate=car_arrival_rate,
     customer_arrival_rate=customer_arrival_rate
 )
+
 step = 0
 for episode in range(num_episodes):
     print("episode:", episode)
@@ -51,7 +52,7 @@ for episode in range(num_episodes):
         s, reward = env.step()
         episode_rewards[episode] += reward
 
-
+import matplotlib.pyplot as plt
 # plt.plot(np.arange(len(episode_rewards)), episode_rewards)
 # plt.ylabel('random_run_episode_reward')
 # plt.xlabel('episode')

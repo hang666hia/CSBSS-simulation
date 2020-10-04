@@ -7,7 +7,7 @@ max_steps = 96
 num_of_swap_server = 100
 num_of_charging_slot = 15
 initial_FB = 40
-soc_threshold = 0.5
+soc_threshold = 0.6
 soc_max = 0.9
 car_arrival_rate = 6
 customer_arrival_rate = 6
@@ -48,18 +48,13 @@ for episode in range(num_episodes):
         env.pick_up_car()
         env.leave_queue()
 
-        # epsilon = (0.99 ** episode)
+        # epsilon =0.3 * (0.99 ** episode)
         # if np.random.uniform(0, 1) >= epsilon:
         #     num = min(env.idle_slot, env.DB.qsize())
         #     action = RL.choose_action(observation, num)
         # else:
         #     action = env.valid_random_action()
 
-        # if episode < 2000:
-        #     num = min(env.idle_slot, env.DB.qsize())
-        #     action = RL.choose_action(observation, num)
-        # else:
-        #     action = env.valid_random_action()
         num = min(env.idle_slot, env.DB.qsize())
         action = RL.choose_action(observation, num)
         env.charging_battery(action)
@@ -89,10 +84,12 @@ for episode in range(num_episodes):
 
 print('over')
 # run with q_table
-service_loss_run = np.zeros(1000, dtype=int)
-electricity_cost_run = np.zeros(1000)
-income = np.zeros(1000)
-for run_episode in range(1000):
+epsiodes_ = 200
+service_loss_run = np.zeros(epsiodes_, dtype=int)
+electricity_cost_run = np.zeros(epsiodes_)
+income = np.zeros(epsiodes_)
+ch_power = np.zeros((epsiodes_, 96))
+for run_episode in range(epsiodes_):
     print("run period:", run_episode)
     env.reset()
     observation = env.get_system_state()
@@ -116,6 +113,8 @@ for run_episode in range(1000):
 
         income[run_episode] += env.income - env.cost_buy_electricity()
 
+        ch_power[run_episode, t] = env.Ct
+
         observation_, reward = env.step()
         observation = observation_
 
@@ -137,6 +136,11 @@ plt.show()
 
 plt.plot(np.arange(len(electricity_cost)), electricity_cost)
 plt.ylabel('DQN_run_electricity_cost')
+plt.xlabel('episode')
+plt.show()
+
+plt.plot(np.arange(96), np.mean(ch_power, axis=0))
+plt.ylabel('ch_power_av')
 plt.xlabel('episode')
 plt.show()
 
